@@ -1,5 +1,5 @@
 ---
-title: "Entrada 01 — Mi primera experiencia"
+title: "Entrada 01 — Mi primera experienc"
 date: 2025-01-01
 ---
 

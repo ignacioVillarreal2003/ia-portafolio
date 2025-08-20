@@ -12,7 +12,7 @@ La práctica consiste en analizar el dataset del Titanic. Ademas de ver algunas 
 - Explorar el dataset del Titanic, identificando atributos y valores faltantes.
 - Analizar la relación entre variables como sexo, clase, edad y tarifa con la supervivencia.
 
-## Actividades (con tiempos estimados)
+## Actividades
 - Investigación del Dataset del Titanic (10 min)
 - Setup en Colab (5 min)
 - Cargar el dataset de Kaggle (5-10 min)
@@ -22,13 +22,11 @@ La práctica consiste en analizar el dataset del Titanic. Ademas de ver algunas 
 ## Desarrollo
 
 ### 1. Investigación del dataset
-
 El dataset del Titanic es un conjunto de datos que contiene información de los pasajeros a bordo del Titanic. Incluye variables demográficas, socioeconómicas y de contexto, que indica si el pasajero sobrevivió o no.
 
 El objetivo es construir un modelo predictivo que, en base a los datos de los pasajeros, pueda estimar la probabilidad de supervivencia. 
 
 ### Atributos del dataset:
-
 - PassengerId: identificador único de cada pasajero.
 - Survived: variable objetivo (0 = no sobrevivió, 1 = sobrevivió).
 - Pclass: clase del boleto (1ª, 2ª, 3ª), indicador de estatus socioeconómico.
@@ -66,12 +64,11 @@ La variable objetivo es Survived (0 = no sobrevivió, 1 = sobrevivió).
 ![](../assets/UT1_TA1_2.png)
 
 ### 2. Setup en Colab
-
 Se configuró el entorno en Google Colab instalando dependencias (Pandas, Numpy, Matplotlib, Seaborn).
 
 Se montó Google Drive para almacenar resultados y se prepararon directorios (data/, results/).
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -83,7 +80,7 @@ plt.style.use('seaborn-v0_8')
 sns.set_palette('deep')
 ```
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 from pathlib import Path
 try:
     from google.colab import drive
@@ -100,10 +97,9 @@ print('Outputs →', ROOT)
 ```
 
 ### 3. Carga del dataset
-
 Con Kaggle API, configurando credenciales y descargando automáticamente train.csv y test.csv.
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 !pip -q install kaggle
 from google.colab import files
 files.upload()  # Subí tu archivo kaggle.json descargado
@@ -116,21 +112,20 @@ test = pd.read_csv('data/test.csv')
 ```
 
 ### 4. Conocer el dataset
-
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 train.shape, train.columns
 ```
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 ((891, 12),
  Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp', 'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'], dtype='object'))
 ```
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 train.info()
 ```
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 <class 'pandas.core.frame.DataFrame'>
 RangeIndex: 891 entries, 0 to 890
 Data columns (total 12 columns):
@@ -153,19 +148,19 @@ dtypes: float64(2), int64(5), object(5)
 
 Se identificaron valores faltantes principalmente en Age y Cabin.
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 train.describe(include='all').T
 ```
 
 ![](../assets/UT1_TA1_3.png)
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 train.isna().sum().sort_values(ascending=False)
 ```
 
 ![](../assets/UT1_TA1_4.png)
 
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 train['Survived'].value_counts(normalize=True)
 ```
 
@@ -174,8 +169,7 @@ train['Survived'].value_counts(normalize=True)
 Distribución de supervivencia: aproximadamente 38% sobrevivió, 62% no sobrevivió.
 
 ### 5. EDA visual
-
-```python hl_lines="2 6" linenums="1"
+```python linenums="1"
 fig, axes = plt.subplots(2, 2, figsize=(12, 10))
 
 # Supervivencia global por sexo
@@ -210,7 +204,6 @@ Edad: mayor proporción de supervivencia en niños.
 Correlaciones numéricas: Fare y Pclass están relacionados con la supervivencia; SibSp y Parch aportan información adicional.
 
 ### Atributos del dataset
-
 - PassengerId: identificador único de cada pasajero.
 - Survived: variable objetivo (0 = no sobrevivió, 1 = sobrevivió).
 - Pclass: clase del boleto (1ª, 2ª, 3ª), indicador de estatus socioeconómico.
@@ -229,20 +222,17 @@ La variable objetivo es Survived.
 ## Preguntas
 
 ### ¿Qué variables parecen más relacionadas con Survived?
-
 - Sexo: las mujeres tuvieron una tasa de supervivencia muy superior.
 - Clase (Pclass): la 1ª clase presenta mayor supervivencia.
 - Edad: mayor proporción de niños sobrevivientes.
 - Tarifa (Fare): los pasajeros que pagaron más tuvieron más chances de sobrevivir.
 
 ### ¿Dónde hay más valores faltantes? ¿Cómo los imputarías?
-
 - Cabin: demasiados valores nulos, probablemente convenga descartar.
 - Age: imputación con mediana.
 - Embarked: imputar con la moda.
 
 ### ¿Qué hipótesis probarías a continuación?
-
 - Los pasajeros de 1ª clase tuvieron mayor probabilidad de supervivencia que los de 3ª.
 - Las mujeres tuvieron más chances de sobrevivir que los hombres, independientemente de la clase.
 

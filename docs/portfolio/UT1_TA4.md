@@ -1,9 +1,9 @@
 ---
-title: "Práctica 3: Regresión Lineal y Logística"
+title: "Práctica 4: Regresión Lineal y Logística"
 date: 2025-08-22
 ---
 
-# Práctica 3: Regresión Lineal y Logística
+# Práctica 4: Regresión Lineal y Logística
 
 ## Contexto
 En esta práctica vamos a trabajar con dos algoritmos la regresión lineal y la regresión logística.

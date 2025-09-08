@@ -368,12 +368,12 @@ Regresión logística para clasificar si un email es spam o no spam.
 #### ¿Por qué es importante separar datos de entrenamiento y prueba?
 Para tener una estimación realista del rendimiento del modelo.
 
-Esta tarea nos muestra cómo con modelos muy simples podemos resolver problemas reales de predicción y clasificación, y lo importante que es elegir la métrica adecuada según el tipo de problema.
-
 ## Reflexión
 La regresión lineal y la logística son modelos simples, una permite estimar valores continuos y la otra clasificar categorías. 
 
 Lo importante no es solo entrenar el modelo, sino también elegir las métricas correctas para evaluar su desempeño.
+
+Esta tarea nos muestra cómo con modelos muy simples podemos resolver problemas reales de predicción y clasificación, y lo importante que es elegir la métrica adecuada según el tipo de problema.
 
 ## Referencias
 - Dataset: https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic

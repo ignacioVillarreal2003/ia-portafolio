@@ -833,3 +833,4 @@ La validación y selección de modelos son pasos importantes para construir sist
 - Ridge Classifier: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.RidgeClassifier.html
 - Random Forest: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
 - Cross-validation: https://scikit-learn.org/stable/modules/cross_validation.html
+https://colab.research.google.com/drive/1xy7JUUjUr1CrQDYVZdIVBy9xrulPtuKM?usp=sharing

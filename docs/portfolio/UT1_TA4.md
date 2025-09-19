@@ -379,3 +379,4 @@ Esta tarea nos muestra cómo con modelos muy simples podemos resolver problemas 
 - Dataset: https://archive.ics.uci.edu/dataset/17/breast+cancer+wisconsin+diagnostic
 - Dataset: https://www.kaggle.com/datasets/altavish/boston-housing-dataset
 - Scikit-learn: https://scikit-learn.org/stable/index.html
+https://colab.research.google.com/drive/1HAlTS_aSQE3N-wa3zLP27zj61WNLQ7Mm?usp=sharing

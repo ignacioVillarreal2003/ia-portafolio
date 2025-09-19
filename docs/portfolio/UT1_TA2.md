@@ -198,3 +198,4 @@ Finalmente, la Regresión Logística es simple, interpretable y efectivo en data
 - Dataset: https://www.kaggle.com/competitions/titanic/data/
 - Kaggle: https://www.kaggle.com/
 - Scikit-learn: https://scikit-learn.org/stable/
+https://colab.research.google.com/drive/1ll1-Xful-SHlzc6wazeKC5QGFEbXb0O6?usp=sharing

@@ -249,3 +249,4 @@ Ademas en los datos hay valores faltantes en Age y Cabin que requieren completar
 - Documentación Pandas: https://pandas.pydata.org/docs/
 - Documentación Seaborn: https://seaborn.pydata.org/
 - Documentación Matplotlib: https://matplotlib.org/stable/
+https://colab.research.google.com/drive/1O3A6fc_NEB1skRthBY7WsypVgCbsAwto?usp=sharing

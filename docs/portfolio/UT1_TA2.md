@@ -6,27 +6,33 @@ date: 2025-08-21
 # Práctica 2: Feature Engineering simple + Modelo base
 
 ## Contexto
-En esta práctica realizaremos feature engineering para mejorar la representación de los datos y construiremos un modelo de Regresión Logística con Scikit-learn.  
 
-También compararemos su rendimiento con un baseline para entender si nuestro modelo realmente aporta valor.
+En esta práctica se trabaja con el dataset del Titanic aplicando Feature Engineering y entrenando un modelo base de clasificación. El objetivo es mejorar la representación de los datos mediante la creación de nuevas variables y preparar el dataset para su uso en modelos predictivos.
+
+Además, se construye un baseline con DummyClassifier, que sirve como referencia mínima, y se compara su desempeño con un modelo de Regresión Logística entrenado sobre las variables originales y las nuevas features.
+
+La actividad permite practicar conceptos clave de preprocesamiento, imputación de valores faltantes, división en conjuntos de entrenamiento y prueba, y evaluación de modelos utilizando métricas como accuracy, classification report y la matriz de confusión.
 
 ## Objetivos
+
 - Comprender la importancia del Feature Engineering para mejorar la calidad de los datos para el modelo.
 - Crear nuevas variables derivadas del dataset original.
 - Entrenar un modelo de Regresión Logística y evaluarlo.
 - Comparar el rendimiento con un baseline.
 - Analizar resultados mediante métricas de clasificación y la matriz de confusión.
 
-## Actividades (con tiempos estimados)
-- Investigación de Scikit-learn (10 min)
-- Preprocesamiento y features (15 min)
-- Modelo base y baseline (20 min)
+## Actividades
+
+- Investigación de Scikit-learn
+- Preprocesamiento y features
+- Modelo base y baseline
 
 ## Desarrollo
 
 ### 1. Investigación de Scikit-learn
 
 #### LogisticRegression
+
 - Resuelve problemas de clasificación binaria y multiclase.
 - Parámetros importantes:
   - `penalty`: tipo de regularización (l1, l2).
@@ -35,24 +41,28 @@ También compararemos su rendimiento con un baseline para entender si nuestro mo
 - `solver='liblinear'`: útil para datasets pequeños y soporta `l1`.  
 
 #### DummyClassifier
+
 - Genera un modelo baseline muy simple.  
 - Estrategias: `most_frequent`, `stratified`, `uniform`.  
 - Si un modelo complejo no supera al baseline, no es mejor que adivinar.
 
 #### train_test_split
+
 - `stratify=y`: mantiene la proporción de clases en train/test.  
 - `random_state`: garantiza reproducibilidad.  
 - Tamaño de test: común usar 20%.
 
 #### Métricas de evaluación
+
 - `classification_report`: incluye `precision`, `recall`, `f1-score`, `support`.
 - Matriz de confusión: muestra errores en FP y FN.
 - `accuracy`: buena si las clases están balanceadas, si no, conviene usar `f1` o `recall`.
 
 ## 2. Preprocesamiento y Feature Engineering
+
 Feature Engineering es transformar y crear nuevas variables que hagan más fácil para el modelo encontrar patrones.
 
-```python linenums="1"
+```python
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -88,7 +98,7 @@ for d in (DATA_DIR, RESULTS_DIR):
 print('Outputs →', ROOT)
 ```
 
-```python linenums="1"
+```python
 df = train.copy()
 
 # 🚫 PASO 1: Manejar valores faltantes (imputación)
@@ -112,12 +122,13 @@ y = df['Survived']
 X.shape, y.shape
 ```
 
-```python linenums="1"
+```python
 ((891, 14), (891,))
 ```
 
 ### 3. Modelo base y baseline
-```python linenums="1"
+
+```python
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.linear_model import LogisticRegression
@@ -145,7 +156,7 @@ print('\nConfusion matrix (LogReg):')
 print(confusion_matrix(y_test, pred))
 ```
 
-```python linenums="1"
+```python
 Baseline acc: 0.6145251396648045
 LogReg acc  : 0.8156424581005587
 
@@ -165,36 +176,31 @@ Confusion matrix (LogReg):
  [21 48]]
 ```
 
-## Preguntas
+## Reflexión
 
-### ¿En qué casos se equivoca más el modelo: cuando predice que una persona sobrevivió y no lo hizo, o al revés?
-Se equivoca más al predecir que una persona sobrevivió y no lo hizo (FN - 21 casos) que al predecir que no sobrevivió cuando sí lo hizo (FP - 12 casos), según la matriz de confusión.
+El modelo se equivoca más al predecir que una persona sobrevivió y no lo hizo (FN - 21 casos) que al predecir que no sobrevivió cuando sí lo hizo (FP - 12 casos), según la matriz de confusión.
 
-### ¿El modelo acierta más con los que sobrevivieron o con los que no sobrevivieron?
-Acierta más con los que no sobrevivieron (98 aciertos) que con los que sí sobrevivieron (48 aciertos).
+El modelo acierta más con los que no sobrevivieron (98 aciertos) que con los que sí sobrevivieron (48 aciertos).
 
-### ¿La Regresión Logística obtiene más aciertos que el modelo que siempre predice la clase más común?
-Sí, el baseline tenía una exactitud de ~61% mientras que la Regresión Logística logra ~82%. Esto demuestra que el modelo aprende patrones útiles y supera el baseline.
+El baseline tiene una exactitud de ~61% mientras que la Regresión Logística logra ~82%. Esto demuestra que el modelo aprende patrones útiles y supera el baseline.
 
-### ¿Cuál de los dos tipos de error creés que es más grave para este problema?
-Los falsos negativos (predijo que no sobrevivió y sí lo hizo) pueden ser más graves si estuvieras usando el modelo para priorizar rescates, porque podrían dejar sin atención a alguien que necesitaba ayuda.
+Los falsos negativos (predijo que no sobrevivió y sí lo hizo) pueden ser errores más graves si estuvieras usando el modelo para priorizar rescates, porque podrían dejar sin atención a alguien que necesitaba ayuda o pasarlo por muerto.
 
-### Mirando las gráficas y números, ¿qué patrones interesantes encontraste sobre la supervivencia?
-Respuesta en UT1_TA1
+Respecto a la supervivencia de las personas, tanto la edad, sexo y clase fueron muy influyentes, mujeres y niños primeros, ademas de los ricos de primera clase.
 
-### ¿Qué nueva columna (feature) se te ocurre que podría ayudar a que el modelo acierte más?
+Alguna nueva columna que podría ayudar a que el modelo acierte más serian:
+
 - Extraer la letra de la cabina (`C23` → `C`) para reflejar la ubicación en el barco.
 - Categorizar edades en rangos (`Child`, `Adult`, `Senior`) para capturar diferencias de supervivencia.
 
-## Reflexión
-En esta práctica en ciertos casos es importante crear features derivados para ayudat al modelo a captar relaciones no obvias.
+Como conclusiones generales, esta práctica permitió comprobar que el Feature Engineering es una herramienta fundamental, al crear variables derivadas se pueden capturar patrones y relaciones que no son evidentes en los datos originales, lo que hace que mejore la capacidad predictiva.
 
-La comparación con el baseline es clave para asegura que el modelo realmente aporta valor.
+La comparación con un baseline es importante, ya que brinda un punto de referencia mínimo y permite confirmar que nuestro modelo realmente aporta valor y no se limita a repetir la clase mayoritaria.
 
-Finalmente, la Regresión Logística es simple, interpretable y efectivo en datasets pequeños.
-
+Por último, la Regresión Logística demostró ser un modelo simple, interpretable y a la vez muy eficaz para el datasets.
 
 ## Referencias
+
 - Dataset: https://www.kaggle.com/competitions/titanic/data/
 - Kaggle: https://www.kaggle.com/
 - Scikit-learn: https://scikit-learn.org/stable/

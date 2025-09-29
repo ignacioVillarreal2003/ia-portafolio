@@ -11,7 +11,6 @@ Esta práctica presenta la evolución desde el perceptrón simple hasta las rede
 
 Se busca comprender tanto las limitaciones de un modelo lineal, con el ejemplo del problema XOR, como el potencial de arquitecturas más complejas que permiten resolver problemas reales. 
 
-
 ## Objetivos
 
 - Identificar las limitaciones del perceptrón simple al enfrentarse con problemas no linealmente separables.

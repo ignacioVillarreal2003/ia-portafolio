@@ -162,6 +162,8 @@ print(f"  Parámetros totales: {model.count_params():,}")
   Parámetros totales: 5,955,466
 ```
 
+> Como aclaración, el código es corto porque la mayoría de las pruebas las hice en el mismo bloque, por lo que se fueron borrando. Igualmente, los resultados oscilaron entre un 20% aproximadamente y un 55%.
+
 ## Reflexión
 
 Este trabajo permitió comprender de manera práctica cómo funcionan las redes neuronales multicapa aplicadas a un problema de clasificación de imágenes. Aprendí la importancia del preprocesamiento de datos y la normalización. También quedó en evidencia cómo los hiperparámetros (optimización, tasa de aprendizaje, regularización) influyen directamente en el desempeño del modelo.

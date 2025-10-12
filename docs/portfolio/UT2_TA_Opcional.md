@@ -1,5 +1,5 @@
 ---
-title: "Clasificación de Dígitos Manuscritos con MLP y PyTorch Lightning
+title: "Clasificación de Dígitos Manuscritos con MLP y PyTorch Lightning"
 date: 2025-10-12
 ---
 

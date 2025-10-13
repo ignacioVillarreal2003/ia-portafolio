@@ -3,7 +3,7 @@ title: "Páctica 8: Backpropagation y Optimizadores"
 date: 2025-09-28
 ---
 
-# Páctica 8: Backpropagation y Optimizadores
+# Backpropagation y Optimizadores
 
 ## Contexto
 

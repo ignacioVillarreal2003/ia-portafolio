@@ -3,7 +3,7 @@ title: "Páctica 7: De Perceptrón a Redes Neuronales"
 date: 2025-09-28
 ---
 
-# Páctica 7: De Perceptrón a Redes Neuronales
+# De Perceptrón a Redes Neuronales
 
 ## Contexto
 

@@ -156,11 +156,46 @@ print(f"  Parámetros totales: {model.count_params():,}")
 ```
 
 ```python
+Entrenando red neuronal...
+Epoch 1/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 13s 21ms/step - accuracy: 0.3330 - loss: 1.8713 - val_accuracy: 0.4537 - val_loss: 1.5349 - learning_rate: 0.0400
+Epoch 2/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 11ms/step - accuracy: 0.4552 - loss: 1.5285 - val_accuracy: 0.4809 - val_loss: 1.4793 - learning_rate: 0.0400
+Epoch 3/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step - accuracy: 0.4966 - loss: 1.4047 - val_accuracy: 0.4956 - val_loss: 1.4557 - learning_rate: 0.0400
+Epoch 4/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 5s 9ms/step - accuracy: 0.5255 - loss: 1.3269 - val_accuracy: 0.5025 - val_loss: 1.4467 - learning_rate: 0.0400
+Epoch 5/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 12ms/step - accuracy: 0.5534 - loss: 1.2538 - val_accuracy: 0.5087 - val_loss: 1.4499 - learning_rate: 0.0400
+Epoch 6/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step - accuracy: 0.5760 - loss: 1.1907 - val_accuracy: 0.5108 - val_loss: 1.4739 - learning_rate: 0.0400
+Epoch 7/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step - accuracy: 0.5979 - loss: 1.1317 - val_accuracy: 0.5059 - val_loss: 1.5151 - learning_rate: 0.0400
+Epoch 8/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 11ms/step - accuracy: 0.6167 - loss: 1.0699 - val_accuracy: 0.5085 - val_loss: 1.5245 - learning_rate: 0.0400
+Epoch 9/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 11ms/step - accuracy: 0.6431 - loss: 1.0072 - val_accuracy: 0.5328 - val_loss: 1.4088 - learning_rate: 0.0020
+Epoch 10/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 5s 9ms/step - accuracy: 0.6682 - loss: 0.9354 - val_accuracy: 0.5344 - val_loss: 1.4100 - learning_rate: 0.0020
+Epoch 11/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 10ms/step - accuracy: 0.6751 - loss: 0.9169 - val_accuracy: 0.5344 - val_loss: 1.4132 - learning_rate: 0.0020
+Epoch 12/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 4s 10ms/step - accuracy: 0.6804 - loss: 0.9032 - val_accuracy: 0.5349 - val_loss: 1.4189 - learning_rate: 0.0020
+Epoch 13/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step - accuracy: 0.6855 - loss: 0.8869 - val_accuracy: 0.5349 - val_loss: 1.4240 - learning_rate: 0.0020
+Epoch 14/30
+352/352 ━━━━━━━━━━━━━━━━━━━━ 3s 9ms/step - accuracy: 0.6887 - loss: 0.8770 - val_accuracy: 0.5345 - val_loss: 1.4269 - learning_rate: 0.0010
+
 🎯 Resultados TensorFlow:
-  Training Accuracy: 69.5%
-  Test Accuracy: 52.2%
+  Training Accuracy: 73.8%
+  Test Accuracy: 53.5%
   Parámetros totales: 5,955,466
 ```
+
+![](../assets/UT2_TA2_2.png)
+![](../assets/UT2_TA2_3.png)
+![](../assets/UT2_TA2_4.png)
+![](../assets/UT2_TA2_5.png)
 
 > Como aclaración, el código es corto porque la mayoría de las pruebas las hice en el mismo bloque, por lo que se fueron borrando. Igualmente, los resultados oscilaron entre un 20% aproximadamente y un 55%.
 

@@ -255,6 +255,18 @@ ResNet50 (Fine-tuned)    : 34.25%
 
 ![](../assets/UT3_TA1_2.png)
 
+---
+
+Se implementó una CNN mejorada para el dataset CIFAR-10, incorporando capas convolucionales con Batch Normalization, Dropout y regularización L2 para mejorar la estabilidad del entrenamiento y reducir el sobreajuste. Además, se aplicó data augmentation con rotaciones, desplazamientos y flips horizontales, aumentando la diversidad del conjunto de entrenamiento. El modelo se entrenó durante 50 épocas con callbacks de EarlyStopping y ReduceLROnPlateau, ajustando automáticamente la tasa de aprendizaje según la evolución de la pérdida en validación.
+
+El entrenamiento mostró un progreso constante, alcanzando un pico de precisión en validación superior al 86%, con curvas de entrenamiento y validación cercanas, indicando un buen equilibrio entre aprendizaje y generalización. Las técnicas de regularización y normalización permitieron controlar el overfitting y mantener la estabilidad del modelo incluso con un número elevado de parámetros.
+
+```python
+✅ Precisión final en test: 86.64%
+```
+
+![](../assets/UT3_TA1_3.png)
+
 ## Reflexión
 
 El trabajo mostró cómo las redes neuronales convolucionales pueden resolver problemas de clasificación de imágenes en conjuntos de datos como CIFAR-10. La CNN simple logró una precisión razonable, pero presentó un sobreajuste moderado, evidenciado por la diferencia entre precisión de entrenamiento y validación. Esto destaca la necesidad de técnicas de regularización y control del overfitting al entrenar modelos desde cero.
@@ -262,6 +274,8 @@ El trabajo mostró cómo las redes neuronales convolucionales pueden resolver pr
 La CNN mejorada, con Batch Normalization, Dropout y regularización L2, alcanzó la mejor precisión (75.25%) y mostró un entrenamiento más estable, lo que confirma que la optimización de la arquitectura y la incorporación de estrategias de regularización pueden mejorar significativamente la generalización sin depender de modelos preentrenados.
 
 Por otro lado, los modelos de Transfer Learning (VGG16 y ResNet50) no lograron superar a las CNN propias. Esto evidencia que el aprendizaje transferido no garantiza mejores resultados en todos los casos y que, para datasets pequeños o específicos, una CNN bien diseñada y entrenada desde cero puede ofrecer un equilibrio superior entre rendimiento y capacidad de generalización.
+
+La CNN mejorada demostró un rendimiento notable, superando ampliamente a modelos más simples y evidenciando que la combinación de arquitectura profunda, regularización y data augmentation es efectiva para conjuntos de datos como CIFAR-10. El modelo alcanzó un 86.64% de precisión en test, mostrando capacidad de generalización y estabilidad. Esto confirma que, una CNN optimizada desde cero puede superar modelos de Transfer Learning sin fine-tuning, ofreciendo un balance óptimo entre precisión y control del overfitting.
 
 ## Referencias
 

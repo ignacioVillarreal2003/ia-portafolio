@@ -1,25 +1,27 @@
 ---
-title: "UT3 TAO3 - Comparativa YOLO y Tracking"
+title: "Comparativa YOLO y Tracking"
 date: 2025-10-31
 ---
 
-# UT3 TAO3 - Comparativa YOLO y Tracking
+# Comparativa YOLO y Tracking
 
 ## Contexto
-En esta actividad se realizó una comparación práctica entre modelos de detección basados en Ultralytics YOLO (versiones v8 y v11) y una demo de tracking usando Norfair. El objetivo fue experimentar con entrenamiento rápido (subsets/fractions) sobre un dataset de detección de frutas descargado desde Kaggle, analizar trade-offs entre velocidad y precisión, y producir visualizaciones y métricas comparativas.
+
+En esta actividad se realizó una comparación práctica entre modelos de detección basados en Ultralytics YOLO (versiones v8 y v11) y una demo de tracking usando Norfair. El objetivo fue experimentar con entrenamiento rápido sobre un dataset de detección de frutas, analizar trade-offs entre velocidad y precisión, y producir visualizaciones y métricas comparativas.
 
 ## Objetivos
-- Evaluar y comparar el desempeño (mAP@0.5, mAP@0.5:0.95, precision, recall) de varias configuraciones de YOLO sobre el dataset "fruit-detection" de Kaggle.
-- Medir tiempos de entrenamiento e inferencia y analizar el compromiso velocidad vs. exactitud para elegir un modelo operativo.
+
+- Evaluar y comparar el desempeño de varias configuraciones de YOLO sobre el dataset fruit-detection de Kaggle.
 - Mostrar resultados visuales (detecciones con bounding boxes) y preparar métricas básicas de tracking/benchmark para futuros experimentos.
 
-## Actividades (con tiempos estimados)
-- Preparación del entorno e instalación de dependencias — 20 min
-- Descarga y verificación del dataset (Kaggle) y creación de `data.yaml` — 25 min
-- Entrenamiento rápido (subset) de modelos base (YOLOv8n, YOLOv8s, YOLOv11n) — 60–90 min (depende de GPU)
-- Entrenamiento extendido (más épocas y modelos adicionales) — 120–180 min (depende de GPU)
-- Evaluación, benchmarking de inferencia (20 imágenes) y recolección de métricas — 30 min
-- Visualización comparativa de detecciones (3 imágenes) y gráficos de análisis — 30 min
+## Actividades
+
+- Preparación del entorno e instalación de dependencias
+- Descarga y verificación del dataset
+- Entrenamiento rápido de modelos base (YOLOv8n, YOLOv8s, YOLOv11n)
+- Entrenamiento extendido (más épocas y modelos adicionales)
+- Evaluación, benchmarking de inferencia (20 imágenes) y recolección de métricas
+- Visualización comparativa de detecciones (3 imágenes) y gráficos de análisis
 
 ## Desarrollo
 

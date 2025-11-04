@@ -28,7 +28,7 @@ Además, se buscó analizar métricas por clase para entender asimetrías en el 
 
 ## Desarrollo
 
-La preparación del dataset se realizó dividiendo aproximadamente 80/20 para entrenamiento y test, y mapeando un preprocesamiento que normaliza y redimensiona las imágenes. Se limitaron 4,000 ejemplos para entrenamiento y 1,000 para test con el fin de acelerar el entrenamiento, manteniendo un balance razonable entre clases (aprox. 2,048 “Cat” y 1,952 “Dog”). Se utilizó codificación one-hot y un tamaño de lote de 32 imágenes por iteración.
+ La preparación del dataset se realizó dividiendo aproximadamente 80/20 para entrenamiento y test, y mapeando un preprocesamiento que normaliza y redimensiona las imágenes. Se limitaron 4,000 ejemplos para entrenamiento y 1,000 para test con el fin de acelerar el entrenamiento, manteniendo un balance razonable entre clases (aprox. 2,051 “Cat” y 1,949 “Dog”). Se utilizó codificación one-hot y un tamaño de lote de 32 imágenes por iteración.
 
 ```python
 📊 INFORMACIÓN DEL DATASET:
@@ -143,9 +143,10 @@ Model: "sequential_1"
 🔓 Parámetros entrenables: 558,210
 ```
 
-El entrenamiento de ambos modelos uso `Adam` y callbacks de `EarlyStopping` (monitorizando `val_accuracy` con paciencia 3) y `ReduceLROnPlateau` (reducción de la tasa de aprendizaje al detectar estancamiento en `val_loss`). En las primeras épocas, la CNN simple se estabilizó alrededor de 0.72–0.73 de `val_accuracy`, mientras que el modelo con ResNet50, partiendo más bajo (~0.62), progresó hasta ~0.71 en validación. 
 
-En test, la CNN desde cero alcanzó 73.30% de exactitud y el modelo con Transfer Learning obtuvo 70.80%, para una diferencia de -2.50 puntos porcentuales a favor del enfoque desde cero. 
+El entrenamiento de ambos modelos uso `Adam` y callbacks de `EarlyStopping` (monitorizando `val_accuracy` con paciencia 3) y `ReduceLROnPlateau` (reducción de la tasa de aprendizaje al detectar estancamiento en `val_loss`). En las primeras épocas, la CNN simple se estabilizó alrededor de 0.70–0.71 de `val_accuracy`, mientras que el modelo con ResNet50, partiendo más bajo (~0.52), progresó hasta aproximadamente 0.65–0.68 en validación.
+
+En test, la CNN desde cero alcanzó 70.50% de exactitud y el modelo con Transfer Learning obtuvo 67.90%, para una diferencia de -2.60 puntos porcentuales a favor del enfoque desde cero.
 
 ```
 🏋️ PASO 5: ENTRENAMIENTO
@@ -169,7 +170,12 @@ Epoch 5/15
 125/125 ━━━━━━━━━━━━━━━━━━━━ 13s 102ms/step - accuracy: 0.7017 - loss: 0.5833 - val_accuracy: 0.6470 - val_loss: 0.6293 - learning_rate: 0.0010
 ```
 
-El análisis por clase mostró que la CNN simple presentó mejor recall para “Cat” (0.82) a costa de un menor recall para “Dog” (0.65), mientras que el Transfer Learning invirtió esa tendencia (recall “Dog” 0.82 y “Cat” 0.59). En términos de precisión, la CNN simple favoreció “Dog” (0.79) y el TL favoreció “Cat” (0.76). 
+El análisis por clase mostró los siguientes resultados:
+
+- CNN simple: precision Cat 0.65, recall Cat 0.87; precision Dog 0.81, recall Dog 0.55.
+- Transfer Learning: precision Cat 0.64, recall Cat 0.79; precision Dog 0.74, recall Dog 0.57.
+
+Estos valores coinciden con los reportes de clasificación incluidos más abajo.
 
 ```python
 4️⃣ Evaluando modelos...
@@ -209,7 +215,7 @@ weighted avg       0.69      0.68      0.68      1000
 
 ![](../assets/UT3_TAO1_3.png)
 
-Además, se ejecutó un experimento breve con arquitecturas livianas. En pocas épocas, MobileNetV2 obtuvo 98.70% de exactitud (≈2.62M de parámetros), superando claramente a EfficientNetB0 (48.90%, ≈4.41M) y a la propia ResNet50 en este régimen de entrenamiento corto (51.50%). Dado lo atípico del 98.70% en un escenario acelerado, este resultado debería validarse con múltiples semillas, mayor número de épocas y controles estrictos para descartar cualquier fuga de información o efectos de sobreajuste inadvertido.
+Además, se ejecutó un experimento breve con arquitecturas livianas. En pocas épocas, MobileNetV2 obtuvo 98.40% de exactitud (≈2.62M de parámetros), superando a ResNet50 (56.70%, 24,146,434 parámetros) y a EfficientNetB0 (51.50%, ≈4.41M) en este régimen de entrenamiento corto. Dado lo atípico del 98.40% en un escenario acelerado, este resultado debería validarse con múltiples semillas, mayor número de épocas y controles estrictos para descartar cualquier fuga de información o efectos de sobreajuste inadvertido.
 
 ```python
 7️⃣ Ejecutando experimento adicional...
@@ -268,7 +274,7 @@ Downloading data from https://storage.googleapis.com/keras-applications/efficien
 
 Este ejercicio refuerza que la calidad del preprocesamiento, la elección de arquitectura y la estrategia de entrenamiento inciden de forma decisiva en el desempeño final. El hecho de que la CNN desde cero superara a ResNet50 congelada sugiere que, para este dataset y bajo estas condiciones, la arquitectura diseñada resultó más adecuada que reutilizar representaciones genéricas sin ajuste fino.
 
-Para mejorar, sería conveniente introducir una política de data augmentation más agresiva (volteos, rotaciones, jitter de color, recortes aleatorios) que incremente la diversidad del entrenamiento. En el modelo de Transfer Learning, el siguiente paso natural es habilitar fine-tuning parcial descongelando un subconjunto de capas finales de la base con un learning rate reducido. 
+Para mejorar, sería conveniente introducir una mejor política de data augmentation (volteos, rotaciones, jitter de color, recortes aleatorios) que incremente la diversidad del entrenamiento. En el modelo de Transfer Learning, el siguiente paso es habilitar fine-tuning parcial descongelando un subconjunto de capas finales de la base con un learning rate reducido. 
 
 ## Referencias
 

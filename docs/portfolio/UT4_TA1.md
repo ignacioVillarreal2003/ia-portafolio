@@ -45,11 +45,11 @@ DatasetDict({
 0    1442
 ```
 
-![](image.png)
+![](../assets/UT4_TA1_1.png)
 
 Se observó un fuerte desbalance de clases, predominando la categoría *Neutral* con más de 6.000 ejemplos, frente a unas 1.900 instancias *Bullish* y 1.400 *Bearish*. Esto justificó el uso de la métrica macro-F1 para una evaluación más justa entre clases.
 
-![](image-1.png)
+![](../assets/UT4_TA1_2.png)
 
 ```python
 Top n-grams para clase 0:
@@ -68,7 +68,7 @@ https co: 3518
 https: 3518
 ```
 
-![](image-2.png)
+![](../assets/UT4_TA1_3.png)
 
 Además, el análisis de longitud de textos mostró una distribución moderadamente corta, lo que permitió aplicar truncamiento estándar en la tokenización sin pérdida significativa de contexto.
 
@@ -88,7 +88,7 @@ Como línea base se implementó un modelo TF-IDF + Logistic Regression, que alca
 weighted avg       0.81      0.80      0.79      1909
 ```
 
-![](image-3.png)
+![](../assets/UT4_TA1_4.png)
 
 Posteriormente, se realizó un fine-tuning del modelo Transformer “ProsusAI/finbert”, especializado en texto financiero.
 
@@ -115,7 +115,7 @@ Epoch	Training Loss	Validation Loss	Accuracy	F1
 
 Estos valores superaron claramente al baseline clásico (Accuracy 0.80 / F1 0.70), mostrando una mejora en F1 y una mejor generalización entre clases.
 
-![](image-4.png)
+![](../assets/UT4_TA1_5.png)
 
 ```python
 {'baseline': {'acc': 0.8035620743844945, 'f1': 0.7003047739488877}, 'transformer': {'acc': 0.8727082242011525, 'f1': 0.82656036096332}}

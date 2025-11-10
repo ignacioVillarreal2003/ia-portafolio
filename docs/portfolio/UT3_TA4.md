@@ -1,13 +1,13 @@
 ---
-title: "Plantilla de entrada de portafolio"
+title: "Detección de zonas inundadas"
 date: 2025-01-01
 ---
 
-# Plantilla de entrada de portafolio
+# Detección de zonas inundadas
 
 ## Contexto
 
-En esta actividad se aplica el modelo Segment Anything Model (SAM) para realizar segmentación semántica en la detección de zonas inundadas en imágenes satelitales. SAM se utiliza primero en modo zero-shot, mostrando sus capacidades generales, pero también sus limitaciones en dominios específicos como flood-mapping. Luego se realiza fine-tuning utilizando un dataset rotulado de áreas inundadas para mejorar la precisión de las máscaras.
+En esta actividad se aplica el modelo Segment Anything Model para realizar segmentación semántica en la detección de zonas inundadas en imágenes satelitales. SAM se utiliza primero en modo zero-shot, mostrando sus capacidades generales, pero también sus limitaciones en dominios específicos como flood-mapping. Luego se realiza fine-tuning utilizando un dataset de áreas inundadas para mejorar la precisión de las máscaras.
 
 El objetivo es comparar el desempeño entre el modelo base y el modelo ajustado, analizando métricas, visualizaciones y casos de error, validando la utilidad del fine-tuning para aplicaciones críticas como monitoreo de desastres naturales y respuesta en tiempo real.
 
@@ -53,7 +53,7 @@ Evaluar el desempeño del modelo SAM para segmentación de inundaciones y demost
 
 ### Exploración del dataset
 
-Se implementó un cargador personalizado para leer pares imagen-máscara, validando que cada imagen tuviera su correspondiente máscara. Se obtuvieron 100 muestras iniciales para análisis preliminar. Las imágenes fueron convertidas a RGB y las máscaras binarizadas para asegurar consistencia en el entrenamiento y evaluación.
+Se implementó un cargador personalizado para leer pares imagen-máscara, validando que cada imagen tuviera su correspondiente máscara. Se obtuvieron 100 muestras iniciales para análisis preliminar.
 
 Se realizó un análisis exploratorio que evidenció una alta variabilidad en las dimensiones de las imágenes (81 tamaños únicos), lo cual refuerza la necesidad de aplicar transformaciones de normalización más adelante durante el preprocesamiento. Además, se calculó la proporción promedio de píxeles correspondientes a agua, obteniendo un water ratio aproximado de 42.80%, lo que indica un dataset relativamente balanceado entre clases agua y fondo.
 
@@ -96,7 +96,7 @@ En esta etapa se definieron dos estrategias de inferencia:
 
 ![](../assets/UT3_TA4_3.png)
 
-Se implementaron funciones específicas para realizar predicciones con ambos tipos de entrada, eligiendo la máscara con mayor confianza entre múltiples hipótesis del modelo. Además, se programaron métricas cuantitativas estándar para segmentación (IoU, Dice, Precisión y Recall), asegurando el ajuste automático de dimensiones y formatos de máscaras.
+Se implementaron funciones específicas para realizar predicciones con ambos tipos de entrada, eligiendo la máscara con mayor confianza. Además, se midieron métricas para segmentación (IoU, Dice, Precisión y Recall), asegurando el ajuste automático de dimensiones y formatos de máscaras.
 
 ```python
 === MÉTRICAS - POINT PROMPT ===
@@ -149,7 +149,7 @@ Mean Recall: 0.8106
 
 ### Fine-tuning de SAM para segmentación de inundaciones
 
-Luego del establecimiento del baseline zero-shot con SAM, se procedió al fine-tuning del modelo. Esta etapa tuvo como objetivo evaluar si la adaptación, incluso con un dataset relativamente pequeño (100 imágenes), podía mejorar el rendimiento obtenido.
+Luego del establecimiento del baseline zero-shot con SAM, se procedió al fine-tuning del modelo. Esta etapa tuvo como objetivo evaluar si la adaptación, incluso con un dataset relativamente pequeño, podía mejorar el rendimiento obtenido.
 
 Se construyó un dataset personalizado en PyTorch que:
 
@@ -278,9 +278,9 @@ La curva mostró:
 
 ### Evaluación del modelo
 
-Luego de completar el entrenamiento, se cargó el checkpoint del modelo fine-tuned y se realizó la evaluación sobre el conjunto de validación. El objetivo fue comparar su desempeño frente al modelo SAM pre-entrenado, utilizando métricas (IoU, Dice, precisión y recall).
+Luego de completar el entrenamiento, se cargó el checkpoint del modelo fine-tuned y se realizó la evaluación sobre el conjunto de validación. El objetivo fue comparar su desempeño frente al modelo SAM pre-entrenado.
 
-En términos generales, el modelo ajustado mostró mejoras claras en todas las métricas evaluadas. Los mayores avances se observaron especialmente en IoU y Dice, indicando que el fine-tuning permitió que el modelo se adapte mejor a las características específicas del dataset trabajado. Esto se traduce en segmentos más fieles a las regiones reales en las imágenes.
+En términos generales, el modelo ajustado mostró mejoras en todas las métricas evaluadas. Los mayores avances se observaron especialmente en IoU y Dice, indicando que el fine-tuning permitió que el modelo se adapte mejor a las características específicas del dataset trabajado. Esto se traduce en segmentos más fieles a las regiones reales en las imágenes.
 
 ```python
 === EVALUATING FINE-TUNED SAM ===
@@ -373,3 +373,7 @@ Reduction: 5 (71.4%)
 Esta practica me permitió recorrer todo el flujo para adaptar y evaluar SAM en el dominio de segmentación de inundaciones, desde la preparación del dataset hasta la comparación entre inferencia zero-shot y fine-tuning. Se analizo el desempeño del modelo preentrenado, y el hecho de entender las ventajas y limitaciones de distintos tipos de prompts, y diseñar una estrategia de entrenamiento eficiente para un dataset reducido.
 
 Uno de los principales aprendizajes fue comprobar que, si bien SAM ofrece resultados fuertes en modo zero-shot, la especialización resulta clave para maximizar la precisión en contextos específicos como imágenes satelitales de inundaciones. El fine-tuning logró mejoras significativas, redujo casos fallidos y generó predicciones más completas y consistentes.
+
+## Referencias
+
+https://colab.research.google.com/drive/1xLjVsJi-4uwYgaEXXnWdTOSTlhQT3Gd4?usp=sharing

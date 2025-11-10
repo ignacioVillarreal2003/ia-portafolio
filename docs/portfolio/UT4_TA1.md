@@ -113,7 +113,7 @@ Epoch	Training Loss	Validation Loss	Accuracy	F1
 {'eval_loss': 0.5091170072555542, 'eval_accuracy': 0.8727082242011525, 'eval_f1': 0.82656036096332, 'eval_runtime': 7.9514, 'eval_samples_per_second': 240.082, 'eval_steps_per_second': 15.092, 'epoch': 4.0}
 ```
 
-Estos valores superaron claramente al baseline clásico (Accuracy 0.80 / F1 0.70), mostrando una mejora en F1 y una mejor generalización entre clases.
+Estos valores superaron claramente al baseline (Accuracy 0.80 / F1 0.70), mostrando una mejora en F1 y una mejor generalización entre clases.
 
 ![](../assets/UT4_TA1_5.png)
 
@@ -121,7 +121,7 @@ Estos valores superaron claramente al baseline clásico (Accuracy 0.80 / F1 0.70
 {'baseline': {'acc': 0.8035620743844945, 'f1': 0.7003047739488877}, 'transformer': {'acc': 0.8727082242011525, 'f1': 0.82656036096332}}
 ```
 
-En conclusión, el modelo Transformer no solo logró mayor precisión global, sino también una representación más equilibrada de las clases, demostrando la ventaja de los modelos de lenguaje preentrenados frente a otros enfoques.
+El modelo Transformer no solo logró mayor precisión global, sino también una representación más equilibrada de las clases, demostrando la ventaja de los modelos de lenguaje preentrenados frente a otros enfoques.
 
 ## Reflexión
 

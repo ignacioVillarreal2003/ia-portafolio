@@ -7,11 +7,11 @@ date: 2025-10-31
 
 ## Contexto
 
-En esta actividad se trabajó con el dataset Food-101, que contiene imágenes de 101 diferentes clases de alimentos. El objetivo principal fue implementar técnicas avanzadas de deep learning para clasificación de imágenes, incluyendo data augmentation, transfer learning y métodos de explicabilidad de modelos.
+En esta actividad se trabajó con el dataset Food-101, que contiene imágenes de 101 diferentes clases de alimentos. El objetivo principal fue implementar técnicas para clasificación de imágenes, incluyendo data augmentation, transfer learning y métodos de explicabilidad de modelos.
 
 ## Objetivos
 
-- Implementar un modelo de clasificación de imágenes utilizando transfer learning con EfficientNetB0 alcanzando una precisión de validación superior al 70%
+- Implementar un modelo de clasificación de imágenes utilizando transfer learning con EfficientNetB0
 - Aplicar técnicas de data augmentation para mejorar la robustez del modelo
 - Implementar y visualizar métodos de explicabilidad (GradCAM, Integrated Gradients y LIME) para entender las decisiones del modelo
 
@@ -142,9 +142,9 @@ Se identifico automáticamente la última capa convolucional del modelo y genera
 
 ![](../assets/UT3_TAO2_4.png)
 
-2. Integrated Gradients (IG):
+2. Integrated Gradients:
 
-Se implemento IG con 50 pasos de interpolación entre una imagen base (negra) y la imagen de entrada. Esta técnica nos proporcionó una vista más granular de la contribución de cada píxel a la predicción final.
+Se implemento con 50 pasos de interpolación entre una imagen base (negra) y la imagen de entrada. Esta técnica nos proporcionó una vista más granular de la contribución de cada píxel a la predicción final.
 
 ![](../assets/UT3_TAO2_5.png)
 
@@ -163,8 +163,6 @@ Se configuro LIME para generar explicaciones locales de las predicciones, utiliz
 Durante el proceso de implementación, observé cómo el data augmentation contribuyó significativamente a la capacidad del modelo para generalizar mejor, especialmente en un dataset tan diverso como Food-101.
 
 Los resultados del entrenamiento mostraron una evolución positiva en la precisión del modelo. GradCAM mostró que el modelo efectivamente se enfocaba en las características distintivas de cada plato, mientras que Integrated Gradients proporcionó una visión más detallada de cómo cada región de la imagen contribuía a la clasificación final.
-
-La implementación de Test-Time Augmentation demostró ser efectiva para mejorar la robustez de las predicciones, aunque añadió un costo computacional adicional.
 
 Las técnicas de explicabilidad implementadas no solo ayudaron a entender mejor las decisiones del modelo, sino que también proporcionaron una base para la confianza en sus predicciones.
 

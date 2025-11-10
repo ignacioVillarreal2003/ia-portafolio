@@ -3,13 +3,11 @@ title: "YOLOv8 Fine-tuning & Tracking"
 date: 2025-01-01
 ---
 
-# YOLOv8 Fine-tuning & Tracking
+# YOLO Fine-tuning & Tracking
 
 ## Contexto
 
-Un equipo de Computer Vision de una cadena de supermercados necesita mejorar la detección y el seguimiento de productos en entornos de grocery. El modelo YOLOv8 pre-entrenado en COCO falla al identificar productos específicos (p. ej. variedades de frutas, paquetes concretos), por lo que se propone fine-tuning sobre un dataset especializado (detección de frutas) y añadir un módulo de tracking para aplicaciones reales, control de inventario en estantes, conteo en cintas de checkout, y monitoreo de reposición en tiempo real. 
-
-El flujo incluye comprobación del rendimiento del modelo base, preparación y verificación del dataset YOLO, fine-tuning, evaluación cuantitativa (métricas estándar) y comparación visual/análisis de errores, más integración básica de tracking en vídeo.
+Un equipo de Computer Vision de una cadena de supermercados necesita mejorar la detección y el seguimiento de productos en entornos de grocery. El modelo YOLOv8 pre-entrenado en COCO falla al identificar productos específicos, por lo que se propone fine-tuning sobre un dataset especializado y añadir un módulo de tracking para aplicaciones reales, control de inventario en estantes, conteo en cintas de checkout, y monitoreo de reposición en tiempo real. 
 
 ## Objetivos
 
@@ -21,13 +19,13 @@ Mejorar la detección y el seguimiento de productos en entornos de supermercado 
 - Analizar los errores más comunes del modelo (falsos positivos y negativos) para comprender sus limitaciones y posibles mejoras futuras.
 - Implementar un sistema de tracking que permita seguir los productos detectados a lo largo del tiempo en videos, facilitando tareas de monitoreo, conteo y control de inventario.
 
-## Actividades (con tiempos estimados)
+## Actividades
 
-- Parte 1: Setup e Inferencia Básica (20 min)
+- Parte 1: Setup e Inferencia Básica
     - Paso 1.1: Instalación
     - Paso 1.2: Cargar Modelo Base
     - Paso 1.3: Test en Imágenes de Grocery
-- Parte 2: Fine-tuning YOLOv8 en Fruit Detection Dataset (45 min)
+- Parte 2: Fine-tuning YOLOv8 en Fruit Detection Dataset
     - Paso 2.1: Descargar Dataset de Frutas (YOLOv8 Format)
     - Paso 2.1b: Verificar Estructura y data.yaml
     - Paso 2.2: Explorar Dataset
@@ -37,7 +35,7 @@ Mejorar la detección y el seguimiento de productos en entornos de supermercado 
     - Paso 2.6: Métricas de Evaluación
     - Paso 2.7: Comparación Antes vs Después
     - Paso 2.8: Análisis de Errores
-- Parte 3: Tracking con Modelo Fine-tuned (30 min)
+- Parte 3: Tracking con Modelo Fine-tuned
     - Paso 3.1: Descargar Video de Frutas
     - Paso 3.2: Configurar Norfair Tracker
     - Paso 3.3: Aplicar Tracking en Video
@@ -48,13 +46,11 @@ Mejorar la detección y el seguimiento de productos en entornos de supermercado 
 
 ### Parte 1: Setup e Inferencia Básica
 
-En esta primera etapa se preparó el entorno de trabajo e infraestructura necesaria para realizar pruebas iniciales con el modelo YOLOv8 preentrenado. Se instalaron las dependencias principales para permitir la carga, ejecución y visualización de inferencias. Se verificó también la disponibilidad de GPU mediante PyTorch, ya que el entrenamiento y las inferencias en CPU son considerablemente más lentas.
+Como modelo base se seleccionó YOLOv8n (nano), la versión más liviana de la familia YOLOv8. Modelos más grandes (como yolov8m o yolov8l) ofrecen mayor precisión, pero requieren mayor capacidad de cómputo, lo cual no es necesario en esta fase inicial de análisis.
 
-Como modelo base se seleccionó YOLOv8n (nano), la versión más liviana de la familia YOLOv8. Esta elección se justificó porque permite una ejecución más rápida y ligera, ideal para pruebas exploratorias o entornos con recursos limitados. Modelos más grandes (como yolov8m o yolov8l) ofrecen mayor precisión, pero requieren mayor capacidad de cómputo, lo cual no es necesario en esta fase inicial de análisis.
+El modelo cargado fue preentrenado en el dataset COCO, que contiene 80 clases genéricas. Sin embargo, estas clases son demasiado generales para nuestro caso de uso, ya que el objetivo es detectar productos específicos de supermercado. Aunque COCO incluye categorías como apple o orange, su entrenamiento se basa en ejemplos genéricos y no representa adecuadamente las condiciones visuales reales del entorno grocery.
 
-El modelo cargado fue preentrenado en el dataset COCO, que contiene 80 clases genéricas. Sin embargo, estas clases son demasiado generales para nuestro caso de uso, ya que el objetivo del proyecto es detectar productos específicos de supermercado. Aunque COCO incluye categorías como apple o orange, su entrenamiento se basa en ejemplos genéricos y no representa adecuadamente las condiciones visuales reales del entorno grocery.
-
-Una vez cargado el modelo, se realizó una prueba de inferencia sobre una imagen realista de un pasillo de supermercado. Se utilizó un umbral de confianza de 0.2, que permite detectar objetos sin exigir alta certeza inicial, para observar el comportamiento general del modelo.
+Una vez cargado el modelo, se realizó una prueba de inferencia sobre una imagen realista de supermercado. Se utilizó un umbral de confianza de 0.2, que permite detectar objetos sin exigir alta certeza inicial, para observar el comportamiento general del modelo.
 
 ![](../assets/UT3_TA3_1.png)
 
@@ -64,9 +60,9 @@ El experimento confirma que el modelo YOLOv8 preentrenado en COCO no resulta ade
 
 ### Parte 2: Preparación del Dataset y Entrenamiento del Modelo
 
-Una vez configurado el entorno, se procedió a descargar el conjunto de datos necesario para el entrenamiento del modelo. Para este proyecto se utilizó el Fruit Detection Dataset, disponible en Kaggle. Este conjunto contiene imágenes de distintas frutas, ya etiquetadas y listas para ser usadas en tareas de detección de objetos.
+Una vez configurado el entorno, se procedió a descargar el conjunto de datos necesario para el entrenamiento del modelo. Para este proyecto se utilizó el Fruit Detection Dataset. Este conjunto contiene imágenes de distintas frutas, ya etiquetadas y listas para ser usadas en tareas de detección de objetos.
 
-Posteriormente, se realizó un análisis exploratorio del conjunto de datos. Se revisó la cantidad de imágenes y etiquetas disponibles, y se evaluó la distribución de las clases, es decir, cuántas instancias de cada fruta estaban presentes. Este análisis permitió observar que algunas clases tenían muchas más imágenes que otras, lo que puede influir en el rendimiento del modelo.
+Posteriormente, se realizó un análisis exploratorio del conjunto de datos. Se revisó la cantidad de imágenes y etiquetas disponibles, y se evaluó la distribución de las clases. Este análisis permitió observar que algunas clases tenían muchas más imágenes que otras, lo que puede influir en el rendimiento del modelo.
 
 ```python
 📊 Estadísticas:
@@ -96,7 +92,7 @@ Para complementar el análisis, se visualizaron algunas imágenes del conjunto d
 
 ![](../assets/UT3_TA3_3.png) 
 
-Finalmente, se configuraron los parámetros básicos del proceso de fine-tuning, incluyendo la cantidad de épocas, el tamaño de las imágenes y el tamaño del lote de datos procesado en cada iteración. Se utilizó un modelo base preentrenado (YOLOv8n), que se adaptó a las nuevas clases del dataset de frutas.
+Finalmente, se configuraron los parámetros básicos del proceso de fine-tuning, incluyendo la cantidad de épocas, el tamaño de las imágenes y el tamaño del lote de datos procesado en cada iteración. Se utilizó un modelo base preentrenado YOLOv8n, que se adaptó a las nuevas clases del dataset de frutas.
 
 ```python
 Model summary: 129 layers, 11,137,922 parameters, 11,137,906 gradients, 28.7 GFLOPs
@@ -141,7 +137,7 @@ Speed: 0.2ms preprocess, 5.0ms inference, 0.0ms loss, 2.8ms postprocess per imag
 
 ![](../assets/UT3_TA3_4.png) 
 
-El entrenamiento se desarrolló correctamente, mostrando en cada época el progreso del modelo en términos de precisión y detección. A medida que avanzaba el proceso, se observó una mejora en la capacidad del modelo para reconocer las diferentes frutas. Al finalizar, se generaron los gráficos y resultados correspondientes, junto con los pesos del modelo ajustado, listos para ser utilizados en la siguiente fase del proyecto.
+El entrenamiento se desarrolló correctamente, mostrando en cada época el progreso del modelo en términos de precisión y detección. A medida que avanzaba el proceso, se observó una mejora en la capacidad del modelo para reconocer las diferentes frutas.
 
 Luego se cargó el modelo resultante del proceso de entrenamiento, seleccionando el correspondiente a los mejores pesos. El modelo cargado fue un YOLOv8 fine-tuned, especializado en la detección de frutas. Mientras que el modelo base (entrenado en el conjunto COCO) reconocía 80 clases genéricas, el modelo ajustado se centró en 6 clases específicas: manzana, banana, uva, naranja, ananá y sandía. Esta especialización permitió reducir la confusión con objetos no relacionados y mejorar la precisión en el dominio específico.
 
@@ -153,10 +149,6 @@ En general, el modelo fine-tuned mostró una mejora clara respecto al modelo bas
 
 ```python
 === EVALUACIÓN EN VALIDATION SET ===
-Ultralytics 8.3.218 🚀 Python-3.12.12 torch-2.8.0+cu126 CUDA:0 (Tesla T4, 15095MiB)
-val: Fast image access ✅ (ping: 0.0±0.0 ms, read: 1268.6±380.4 MB/s, size: 50.2 KB)
-val: Scanning /content/fruit_detection/Fruits-detection/valid/labels.cache... 914 images, 0 backgrounds, 0 corrupt: 100% ━━━━━━━━━━━━ 914/914 1.7Mit/s 0.0s
-val: /content/fruit_detection/Fruits-detection/valid/images/3d3ddc3054b32eb7_jpg.rf.03e7789aaf5212e2634b84ef502e0832.jpg: 1 duplicate labels removed
                  Class     Images  Instances      Box(P          R      mAP50  mAP50-95): 100% ━━━━━━━━━━━━ 58/58 4.1it/s 14.1s
                    all        914       3227      0.578      0.392      0.418       0.27
                  Apple        188        557      0.582      0.354       0.38      0.267
@@ -165,8 +157,6 @@ val: /content/fruit_detection/Fruits-detection/valid/images/3d3ddc3054b32eb7_jpg
                 Orange        197       1100      0.653      0.357      0.404      0.256
              Pineapple         77        154       0.58      0.357      0.411       0.25
             Watermelon        107        217      0.536      0.488       0.51      0.364
-Speed: 1.3ms preprocess, 9.0ms inference, 0.0ms loss, 1.0ms postprocess per image
-Results saved to /content/runs/detect/val3
 
 📊 MÉTRICAS DEL MODELO FINE-TUNED:
   mAP@0.5:     0.418
@@ -195,11 +185,9 @@ En conjunto, la comparación visual mostró que el modelo fine-tuned logra detec
 
 ![](../assets/UT3_TA3_7.png) 
 
-Para comprender en detalle el rendimiento, se realizó un análisis de errores considerando los falsos positivos (detecciones incorrectas) y falsos negativos (objetos no detectados).
-
 Los resultados indicaron que el modelo base cometía más errores de falsa detección, mientras que el modelo fine-tuned redujo significativamente estos casos, aumentando la precisión general. A pesar de que aún se observaron falsos negativos, el balance global fue positivo.
 
-En términos cualitativos, el modelo ajustado mostró un incremento en precisión y en la capacidad de generalización dentro del dominio de frutas, justificando el proceso de fine-tuning realizado.
+En términos cualitativos, el modelo ajustado mostró un incremento en precisión y en la capacidad de generalización dentro del dominio de frutas.
 
 ```python 
 === ANÁLISIS DE ERRORES ===
@@ -299,10 +287,6 @@ Track 6      Orange                 15 frames ( 0.5s)  328 → 342
 
 El experimento demostró que el modelo fine-tuned, combinado con el tracker de Norfair, puede realizar un seguimiento eficaz de productos en movimiento. Sin embargo, para lograr un rendimiento más robusto en entornos reales, sería necesario optimizar los parámetros del tracker y mejorar la consistencia de las detecciones del modelo.
 
-## Evidencias
-
-- https://colab.research.google.com/drive/1tuo4GpSfLMyMH1pruYZrBCWCp5Gh2Iqr?usp=sharing
-
 ## Reflexión
 
 A lo largo del desarrollo se logró comprender el proceso de detección, fine-tuning y seguimiento de objetos mediante modelos de visión. El trabajo permitió no solo aplicar técnicas prácticas, sino también analizar los resultados y entender las limitaciones de cada componente del sistema.
@@ -317,7 +301,7 @@ Esta experiencia enseñó que para adaptar un modelo a un nuevo dominio es funda
 
 ### Sobre los Datos
 
-El dataset de 8.479 imágenes resultó adecuado para el tamaño del proyecto, aunque no excesivo. El hecho de que con solo un 25% de las imágenes ya se obtuvieran buenos resultados se explica por la coherencia visual del conjunto y la calidad de las etiquetas.
+El dataset de 8.479 imágenes resultó adecuado, aunque no excesivo. El hecho de que con solo un 25% de las imágenes ya se obtuvieran buenos resultados se explica por la coherencia visual del conjunto y la calidad de las etiquetas.
 
 La calidad de las anotaciones fue clave, se observó que los errores o imprecisiones en los bounding boxes afectaban directamente la estabilidad del entrenamiento y la precisión final del modelo.
 
@@ -327,20 +311,13 @@ Si se agregaran 1.000 imágenes más, deberían enfocarse en casos difíciles, f
 
 En el proceso de seguimiento, tanto el modelo como los parámetros del tracker resultaron importantes, pero la configuración del tracker fue decisiva para mantener la consistencia de los IDs y evitar saltos de identidad.
 
-Norfair, fue suficiente para un entorno controlado, aunque en escenarios más dinámicos podría ser conveniente usar métodos más avanzados como DeepSORT, que incorporan información visual adicional.
-
-Los filtros de Kalman demostraron ser útiles para predecir posiciones temporales cuando los objetos quedaban parcialmente ocultos, mejorando la estabilidad general del seguimiento.
+Norfair fue suficiente para esta practica.
 
 El sistema podría fallar en escenarios con oclusiones prolongadas, iluminación variable o movimientos abruptos, donde las detecciones pierden coherencia entre frames.
 
 ### Sobre el Deployment
 
 El sistema podría ejecutarse casi en tiempo real dependiendo del hardware; sería necesario mantener al menos 25–30 FPS para un monitoreo fluido.
-Para un entorno de producción, se podrían aplicar optimizaciones como:
-
-- Exportar el modelo a ONNX o TensorRT para acelerar la inferencia.
-- Reducir la resolución de entrada sin perder precisión perceptible.
-- Implementar procesamiento por lotes y uso de GPU dedicada.
 
 En casos extremos, como oclusiones o variaciones de luz, podrían integrarse modelos complementarios o mecanismos de corrección temporal para mantener la estabilidad del seguimiento.
 
@@ -352,6 +329,6 @@ Durante el proyecto se identificaron varios trade-offs importantes:
 2. Cantidad de epochs vs Riesgo de overfitting: entrenar más tiempo mejora el mAP en el dataset de entrenamiento, pero puede degradar el rendimiento en datos nuevos.
 3. Umbral de confianza vs Cobertura: un umbral alto reduce falsos positivos, pero puede eliminar detecciones válidas.
 
-La decisión más importante fue ajustar los hiperparámetros del fine-tuning y del tracker para lograr un equilibrio entre estabilidad y precisión. Esto fue clave para evitar que los objetos cambiaran de ID o desaparecieran del tracking.
-
 ## Referencias
+
+- https://colab.research.google.com/drive/1tuo4GpSfLMyMH1pruYZrBCWCp5Gh2Iqr?usp=sharing

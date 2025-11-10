@@ -3,7 +3,7 @@ title: "CNNs y Transfer Learning con TensorFlow/Keras"
 date: 2025-10-14
 ---
 
-# CNNs y Transfer Learning con TensorFlow/Keras
+# CNNs y Transfer Learning sobre CIFAR-10
 
 ## Contexto
 
@@ -20,14 +20,13 @@ Se busca comparar el desempeño de un modelo CNN construido desde cero con el de
 - Evaluar y comparar ambos mediante métricas y análisis de overfitting.
 - Comprender las ventajas y limitaciones del Transfer Learning frente a CNN.
 
-## Actividades (con tiempos estimados)
+## Actividades
 - Paso 1: Setup y Configuración
 - Paso 2: Preparar Dataset CIFAR-10
 - Paso 3: CNN Simple desde Cero
 - Paso 4: Transfer Learning con timm
 - Paso 5: Entrenamiento
 - Paso 6: Evaluación y Comparación
-- Paso 7: Investigación Libre
 
 ## Desarrollo
 
@@ -203,13 +202,6 @@ weighted avg       0.58      0.58      0.58     10000
 
 ### Evaluación comparativa
 
-La evaluación final incluyó métricas cuantitativas y visualizaciones gráficas de precisión, pérdida y sobreajuste.
-
-| Modelo                    | Precisión Validación | Overfitting Gap | Comentario                                    |
-| :------------------------ | :------------------: | :-------------: | :-------------------------------------------- |
-| CNN Simple                |        67.63%        |      0.169      | Buen rendimiento pero tendencia a sobreajuste |
-| VGG16 (Transfer Learning) |        57.69%        |      0.016      | Generalización superior, pero menor precisión |
-
 El reporte de clasificación evidenció que la CNN simple tuvo un mejor desempeño general. Por otro lado, el modelo de transfer learning presentó un rendimiento más equilibrado entre clases, aunque con menor precisión global.
 
 El transfer learning sin fine-tuning no supera necesariamente a una CNN bien ajustada desde cero, especialmente cuando el dominio del dataset difiere notablemente del original.
@@ -218,8 +210,8 @@ El transfer learning sin fine-tuning no supera necesariamente a una CNN bien aju
 📊 EVALUACIÓN FINAL
 --------------------------------------------------
 📊 COMPARACIÓN FINAL:
-🏗️ CNN Simple: 0.6763 (67.63%)
-🎯 Transfer Learning: 0.5769 (57.69%)
+🏗️ CNN Simple: 0.6763
+🎯 Transfer Learning: 0.5769
 ```
 
 ![](../assets/UT3_TA1_1.png)
@@ -269,7 +261,7 @@ El entrenamiento mostró un progreso constante, alcanzando un pico de precisión
 
 ## Reflexión
 
-El trabajo mostró cómo las redes neuronales convolucionales pueden resolver problemas de clasificación de imágenes en conjuntos de datos como CIFAR-10. La CNN simple logró una precisión razonable, pero presentó un sobreajuste moderado, evidenciado por la diferencia entre precisión de entrenamiento y validación. Esto destaca la necesidad de técnicas de regularización y control del overfitting al entrenar modelos desde cero.
+El trabajo mostró cómo las redes neuronales convolucionales pueden resolver problemas de clasificación de imágenes en conjuntos de datos como CIFAR-10. La CNN simple logró una precisión razonable, pero presentó un sobreajuste moderado, evidenciado por la diferencia entre precisión de entrenamiento y validación.
 
 La CNN mejorada, con Batch Normalization, Dropout y regularización L2, alcanzó la mejor precisión (75.25%) y mostró un entrenamiento más estable, lo que confirma que la optimización de la arquitectura y la incorporación de estrategias de regularización pueden mejorar significativamente la generalización sin depender de modelos preentrenados.
 

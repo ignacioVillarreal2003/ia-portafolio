@@ -1,5 +1,5 @@
 ---
-title: "Assignment UT3-10: Data Augmentation Avanzado & Explicabilidad - Fill in the Blanks"
+title: "Assignment UT3-10: Data Augmentation Avanzado & Explicabilidad"
 date: 2025-10-16
 ---
 
@@ -41,9 +41,9 @@ El objetivo final es desarrollar un modelo confiable para la identificación de 
 
 ### Carga y preparación del dataset
 
-El dataset utilizado fue Oxford Flowers102, compuesto por 102 clases de flores, con 1020 imágenes de entrenamiento y 6149 de prueba. Para agilizar los experimentos iniciales se decidió trabajar con un subset de 5000 imágenes de entrenamiento y 1000 de prueba, lo que permitió realizar iteraciones rápidas sin sacrificar la diversidad de las clases. Todas las imágenes fueron redimensionadas a 224x224 píxeles, preparándolas para ser procesadas por los modelos de deep learning.
+El dataset utilizado fue Oxford Flowers102, compuesto por 102 clases de flores, con 1020 imágenes de entrenamiento y 6149 de prueba. Para agilizar los experimentos se trabajo con un subset de 5000 imágenes de entrenamiento y 1000 de prueba, lo que permitió realizar iteraciones rápidas sin sacrificar la diversidad de las clases. Todas las imágenes fueron redimensionadas a 224x224 píxeles, preparándolas para ser procesadas por los modelos.
 
-Se implementaron dos pipelines de datos. El primero, un pipeline baseline, aplicaba shuffle, batching y normalización usando el preprocesamiento de EfficientNet. El segundo incorporaba data augmentation avanzada, mediante capas de Keras que realizaban transformaciones geométricas y fotométricas como flips, rotaciones, zoom, traslaciones, brillo y contraste. Se realizaron visualizaciones de las augmentations para confirmar que las transformaciones eran coherentes y aportaban diversidad al conjunto de entrenamiento.
+Se implementaron dos pipelines de datos. El primero, un pipeline baseline, aplicaba shuffle, batching y normalización usando el preprocesamiento de EfficientNet. El segundo incorporaba data augmentation avanzada, mediante capas de Keras que realizaban transformaciones como flips, rotaciones, zoom, traslaciones, brillo y contraste. Se realizaron visualizaciones de las augmentations para confirmar que las transformaciones eran coherentes y aportaban diversidad al conjunto de entrenamiento.
 
 ![](../assets/UT3_TA2_1.png)
 
@@ -95,7 +95,7 @@ WARNING:absl:You are saving your model as an HDF5 file via `model.save()` or `ke
 
 ### Evaluación e interpretabilidad
 
-La evaluación final sobre el conjunto de test arrojó un accuracy de 52.7% y una pérdida de 2.0677, coherentes con la evolución durante el entrenamiento. Para analizar la interpretabilidad del modelo se implementaron técnicas de GradCAM e Integrated Gradients, las cuales permitieron visualizar qué regiones de las imágenes influyen más en las predicciones. Estas herramientas ayudaron a verificar que el modelo se enfocaba en las áreas correctas de las flores, aumentando la confianza en los resultados obtenidos.
+La evaluación final sobre el conjunto de test arrojó un accuracy de 52.7% y una pérdida de 2.0677. Para analizar la interpretabilidad del modelo se implementaron técnicas de GradCAM e Integrated Gradients, las cuales permitieron visualizar qué regiones de las imágenes influyen más en las predicciones. Estas herramientas ayudaron a verificar que el modelo se enfocaba en las áreas correctas de las flores, aumentando la confianza en los resultados obtenidos.
 
 ```python
 🔍 Aplicando GradCAM...
@@ -119,9 +119,9 @@ Se aprendió cómo combinar pipelines de preprocesamiento, normalización y tran
 
 Además, la implementación de GradCAM e Integrated Gradients permitió comprender mejor cómo el modelo toma decisiones, identificando qué regiones de la imagen influyen en la predicción y evaluando la confiabilidad del modelo.
 
-Es importante entender la relación entre la cantidad y calidad de datos, la complejidad del modelo y la robustez de las predicciones. El hecho de que el subset de entrenamiento fuese pequeño y la base convolucional se mantuviese congelada limitó el rendimiento final, reflejado en un accuracy de validación y test cercano al 53%. Esto evidencia que, aunque el modelo aprende patrones relevantes, todavía hay margen de mejora. Con 50 porciento de probabilidades sobre 102 clases.
+Es importante entender la relación entre la cantidad y calidad de datos, la complejidad del modelo y la robustez de las predicciones. El hecho de que el subset de entrenamiento fuese pequeño limitó el rendimiento final, reflejado en un accuracy de validación y test cercano al 53%. Esto evidencia que, aunque el modelo aprende patrones relevantes, todavía hay margen de mejora. Con 50 porciento de probabilidades sobre 102 clases.
 
-Para mejorar los resultados futuros, se podrían aumentar el número de imágenes de entrenamiento o generando más datos con augmentations, realizar fine-tuning de las capas superiores de la red preentrenada, probar arquitecturas, optimizar hiperparámetros como el learning rate y el batch size. Asimismo, explorar augmentations como Mixup o CutMix para mejorar la generalización del modelo.
+Para mejorar los resultados futuros, se podrían aumentar el número de imágenes de entrenamiento o generando más datos con augmentations, realizar fine-tuning de las capas superiores de la red preentrenada, probar arquitecturas, optimizar hiperparámetros como el learning rate y el batch size.
 
 ## Referencias
 

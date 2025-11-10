@@ -15,7 +15,7 @@ El flujo completo incluyó la preparación del conjunto de datos con `tensorflow
 
 El objetivo principal fue alcanzar un desempeño de referencia en test igual o superior al 70% de exactitud y, en paralelo, comparar una CNN desde cero frente a un modelo con aprendizaje por transferencia. 
 
-Además, se buscó analizar métricas por clase para entender asimetrías en el rendimiento entre “Cat” y “Dog”, y explorar rápidamente arquitecturas livianas (p. ej., MobileNetV2 y EfficientNetB0) que pudieran ofrecer mejor relación precisión/parámetros.
+Además, se buscó analizar métricas por clase para entender asimetrías en el rendimiento entre “Cat” y “Dog”, y explorar rápidamente arquitecturas livianas como MobileNetV2 y EfficientNetB0 que pudieran ofrecer mejor relación precisión/parámetros.
 
 ## Actividades
 
@@ -28,7 +28,7 @@ Además, se buscó analizar métricas por clase para entender asimetrías en el 
 
 ## Desarrollo
 
- La preparación del dataset se realizó dividiendo aproximadamente 80/20 para entrenamiento y test, y mapeando un preprocesamiento que normaliza y redimensiona las imágenes. Se limitaron 4,000 ejemplos para entrenamiento y 1,000 para test con el fin de acelerar el entrenamiento, manteniendo un balance razonable entre clases (aprox. 2,051 “Cat” y 1,949 “Dog”). Se utilizó codificación one-hot y un tamaño de lote de 32 imágenes por iteración.
+La preparación del dataset se realizó dividiendo aproximadamente 80/20 para entrenamiento y test, y mapeando un preprocesamiento que normaliza y redimensiona las imágenes. Se limitaron 4,000 ejemplos para entrenamiento y 1,000 para test con el fin de acelerar el entrenamiento, manteniendo un balance razonable entre clases (aprox. 2,051 “Cat” y 1,949 “Dog”). Se utilizó codificación one-hot y un tamaño de lote de 32 imágenes por iteración.
 
 ```python
 📊 INFORMACIÓN DEL DATASET:
@@ -143,10 +143,9 @@ Model: "sequential_1"
 🔓 Parámetros entrenables: 558,210
 ```
 
-
 El entrenamiento de ambos modelos uso `Adam` y callbacks de `EarlyStopping` (monitorizando `val_accuracy` con paciencia 3) y `ReduceLROnPlateau` (reducción de la tasa de aprendizaje al detectar estancamiento en `val_loss`). En las primeras épocas, la CNN simple se estabilizó alrededor de 0.70–0.71 de `val_accuracy`, mientras que el modelo con ResNet50, partiendo más bajo (~0.52), progresó hasta aproximadamente 0.65–0.68 en validación.
 
-En test, la CNN desde cero alcanzó 70.50% de exactitud y el modelo con Transfer Learning obtuvo 67.90%, para una diferencia de -2.60 puntos porcentuales a favor del enfoque desde cero.
+En test, la CNN desde cero alcanzó 70.50% de exactitud y el modelo con Transfer Learning obtuvo 67.90%, para una diferencia de -2.60% a favor del enfoque desde cero.
 
 ```
 🏋️ PASO 5: ENTRENAMIENTO

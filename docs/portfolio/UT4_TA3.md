@@ -151,6 +151,4 @@ Podría incorporarse persistencia real del estado con un checkpointer, fortalece
 
 ## Referencias
 
-https://colab.research.google.com/drive/1tMCcPoFaMzN2nezFbBQOgJwINFMAe40q?usp=sharing
-- [Documentación de LangGraph](https://langchain-ai.github.io/langgraph/)
-- [LangChain RAG Tutorial](https://python.langchain.com/docs/use_cases/question_answering/)
+- https://colab.research.google.com/drive/1tMCcPoFaMzN2nezFbBQOgJwINFMAe40q?usp=sharing
